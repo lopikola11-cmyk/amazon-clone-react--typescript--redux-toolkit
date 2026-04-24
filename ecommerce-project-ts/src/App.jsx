@@ -1,12 +1,12 @@
 import './App.css';
-import { Checkout } from '../components/checkout.tsx';
-import { HomePage } from '../components/HomePage.tsx';
-import { Order } from '../components/orders.tsx';
+import { Checkout } from '../components/checkout.jsx';
+import { HomePage } from '../components/HomePage.jsx';
+import { Order } from '../components/orders.jsx';
 import { Routes, Route } from 'react-router';
-import { Traking } from '../components/tracking.tsx';
+import { Traking } from '../components/tracking.jsx';
 import { useEffect} from 'react';
 import { useDispatch } from 'react-redux';
-import{fetchCheckouts} from '../store/slice.js';
+import{fetchCheckouts} from '../store/slice.jsx';
 
 
 function App() {
