@@ -2,7 +2,7 @@
 
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-
+/*
 type Rating = {
   stars: number;
   count: number;
@@ -32,15 +32,15 @@ export type Checkout = {
 type CartState = {
     checkouts: Checkout[];
     quantity: number | null;
-};
-const initialState: CartState = {
+};*/
+const initialState/*: CartState*/ = {
     checkouts: [],
     quantity: null,
 };
 
-export const fetchCheckouts = createAsyncThunk <Checkout[]>('cart/fetchCheckouts', async () => {
+export const fetchCheckouts = createAsyncThunk /*<Checkout[]*/>('cart/fetchCheckouts', async () => {
     const response = await axios.get('/api/cart-items?expand=product');
-    return response.data as Checkout[];
+    return response.data /*as Checkout[]*/;
 });
 
 
