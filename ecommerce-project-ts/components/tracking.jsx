@@ -1,11 +1,12 @@
 import '../src/styles/pages/tracking.css';
 import '../src/styles/shared/header.css';
 import { Header } from './utils/header';
-import { Link, useParams } from 'react-router';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
+const API = "https://amazon-clone-react-typescript-redux-3lcl.onrender.com";
 
 export function Traking() {
 
@@ -14,7 +15,7 @@ export function Traking() {
 
   useEffect(() => {
     async function loadOrder() {
-      let response = await axios.get(`/api/orders/${orderId}?expand=products`);
+      let response = await axios.get(`${API}/api/orders/${orderId}?expand=products`);
       setOrder(response.data);
     }
     loadOrder();
@@ -37,8 +38,7 @@ export function Traking() {
     <>
       <title>Tracking Page</title>
 
-      <Header
-      />
+      <Header />
 
       <div className="tracking-page">
         <div className="order-tracking">
@@ -56,7 +56,7 @@ export function Traking() {
 
           <img
             className="product-image"
-            src={`/${productItem.product.image}`}
+            src={productItem.product.image}
             alt="product"
           />
 
