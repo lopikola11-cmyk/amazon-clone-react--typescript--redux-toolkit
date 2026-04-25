@@ -117,7 +117,7 @@ export function Checkout() {
         <div className="checkout-grid">
 
           <div className="order-summary">
-            {checkouts?.map((Item*/:any*/) => {
+            {checkouts?.map((Item) => {
               const baseDate = dayjs(Item.updatedAt);
               const date1 = baseDate.format("dddd MMMM D, YYYY");
               const date2 = baseDate.add(7, "day").format("dddd MMMM D, YYYY");
