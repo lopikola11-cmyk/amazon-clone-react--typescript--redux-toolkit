@@ -1,48 +1,44 @@
 import axios from 'axios';
-import { Fragment,  useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import '../src/styles/pages/orders.css';
 import { Link, useNavigate } from 'react-router';
 import dayjs from 'dayjs';
 import { Header } from './utils/header';
 import { useDispatch } from 'react-redux';
-import {fetchCheckouts}from '../store/slice.jsx'
+import { fetchCheckouts } from '../store/slice.jsx';
+
+const API_BASE = "https://amazon-clone-react-typescript-redux-3lcl.onrender.com";
+
 export function Order() {
- 
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   async function loadOrders() {
-    let response = await axios.get('/api/orders?expand=products');
+    let response = await axios.get(`${API_BASE}/api/orders?expand=products`);
     setOrders(response.data);
   }
 
-
-
-  
   useEffect(() => {
     loadOrders();
   }, []);
 
-  // ⭐ ADD TO CART — works instantly
   async function addToCart(productId, qty) {
-    await axios.post('/api/cart-items', {
+    await axios.post(`${API_BASE}/api/cart-items`, {
       productId,
       quantity: qty
     });
 
-    // ⭐ Refresh cart so checkout updates immediately
     await dispatch(fetchCheckouts());
 
-    // ⭐ Go to checkout AFTER refresh
-    navigate('/cheackout');
+    navigate('/checkout');
   }
 
   return (
     <>
       <title>Orders</title>
 
-      <Header/>
+      <Header />
 
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
@@ -89,7 +85,6 @@ const dispatch = useDispatch();
                         Quantity: {productItem.quantity}
                       </div>
 
-                      {/* ⭐ ADD TO CART button */}
                       <button
                         className="buy-again-button button-primary"
                         onClick={() => addToCart(productItem.productId, productItem.quantity)}
@@ -97,6 +92,7 @@ const dispatch = useDispatch();
                         <img className="buy-again-icon" src="images/icons/buy-again.png" />
                         <span className="buy-again-message">Add to Cart</span>
                       </button>
+
                     </div>
 
                     <div className="product-actions">
