@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { setQuantity } from "../../store/slice.jsx";
 export function Header() {

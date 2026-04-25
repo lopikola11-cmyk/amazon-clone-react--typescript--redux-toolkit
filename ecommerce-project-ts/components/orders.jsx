@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react';
 import '../src/styles/pages/orders.css';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Header } from './utils/header';
 import { useDispatch } from 'react-redux';
