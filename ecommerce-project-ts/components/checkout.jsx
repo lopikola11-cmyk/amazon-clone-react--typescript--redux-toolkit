@@ -6,7 +6,7 @@ import { useState, useEffect} from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { PayementSummary } from './utils/payement-sumary'; 
-import {fetchCheckouts}from '../store/slice.js'
+import {fetchCheckouts}from '../store/slice.jsx'
 
  
 export function Checkout() {
