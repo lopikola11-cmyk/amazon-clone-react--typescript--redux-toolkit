@@ -5,12 +5,14 @@ import { Header } from './utils/header';
 import axios from 'axios';
 import { ProductCard } from './productCard';
 
+const API_BASE = "https://amazon-clone-react-typescript-redux-3lcl.onrender.com";
+
 export function HomePage() { 
 
   const [productGrid, setProductGrid] = useState([]);
 
   async function homePage() {  
-    let response = await axios.get('https://ecommerce-backend.onrender.com/api/products');
+    let response = await axios.get(`${API_BASE}/api/products`);
     setProductGrid(response.data);
   }
 
@@ -26,14 +28,12 @@ export function HomePage() {
       <div className="home-page">
         <div className="products-grid">
 
-          {productGrid.map(product => { 
-            return (
-              <ProductCard 
-                product={product} 
-                key={product.id}   
-              />
-            );
-          })}
+          {productGrid.map(product => (
+            <ProductCard 
+              product={product} 
+              key={product.id}   
+            />
+          ))}
 
         </div>
       </div>
