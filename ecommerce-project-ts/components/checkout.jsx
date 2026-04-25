@@ -2,17 +2,18 @@ import '../src/styles/pages/checkout-header.css';
 import '../src/styles/pages/checkout.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
-import { useState, useEffect} from 'react'; 
+import { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { PayementSummary } from './utils/payement-sumary'; 
-import {fetchCheckouts}from '../store/slice.jsx'
+import { fetchCheckouts } from '../store/slice.jsx';
 
- 
+const API_BASE = "https://amazon-clone-react-typescript-redux-3lcl.onrender.com";
+
 export function Checkout() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const checkouts=useSelector((state)=>state.cart.checkouts);
+  const checkouts = useSelector((state) => state.cart.checkouts);
 
   const [delivery, setDelivery] = useState(null);
   const [editingItemId, setEditingItemId] = useState(null);
@@ -24,21 +25,20 @@ export function Checkout() {
     if (!checkouts) return;
 
     async function loadSummary() {
-      let response = await axios.get('/api/payment-summary');
+      let response = await axios.get(`${API_BASE}/api/payment-summary`);
       setDelivery(response.data);
     }
 
     loadSummary();
   }, [checkouts]);
 
-
   async function updateDelivery(productId, optionId) {
-    await axios.put(`/api/cart-items/${productId}`, { deliveryOptionId: optionId });
+    await axios.put(`${API_BASE}/api/cart-items/${productId}`, { deliveryOptionId: optionId });
     await dispatch(fetchCheckouts());
   }
 
   async function deleteItem(productId) {
-    await axios.delete(`/api/cart-items/${productId}`);
+    await axios.delete(`${API_BASE}/api/cart-items/${productId}`);
     await dispatch(fetchCheckouts());
   }
 
@@ -50,7 +50,7 @@ export function Checkout() {
       return;
     }
 
-    await axios.put(`/api/cart-items/${productId}`, { quantity: qty });
+    await axios.put(`${API_BASE}/api/cart-items/${productId}`, { quantity: qty });
 
     setEditingItemId(null);
     setNewQuantity("");
@@ -59,23 +59,20 @@ export function Checkout() {
   }
 
   async function placeOrder() {
-    let response = await axios.post("/api/orders");
+    let response = await axios.post(`${API_BASE}/api/orders`);
     console.log("Order created:", response.data);
 
     await dispatch(fetchCheckouts());
     navigate("/order");
   }
 
-
   return (
     <>
       <title>Checkout</title>
 
-      {/* 🔥 CHECKOUT HEADER */}
       <div className="checkout-header">
         <div className="header-content">
 
-          {/* LEFT SECTION — WHITE TEXT + GREEN BACKGROUND (Option 4) */}
           <div className="checkout-header-left-section">
             <Link to="/">
               <div
@@ -104,13 +101,10 @@ export function Checkout() {
           <div className="checkout-header-right-section">
             <img src="images/icons/checkout-lock-icon.png" />
           </div>
+
         </div>
       </div>
 
-
-
-
-      {/* 🔥 CHECKOUT PAGE */}
       <div className="checkout-page">
         <div className="page-title">Review your order</div>
 
@@ -155,16 +149,10 @@ export function Checkout() {
                               min="1"
                             />
 
-                            <span
-                              className="link-primary"
-                              onClick={() => saveQuantity(Item.productId)}
-                            >
+                            <span className="link-primary" onClick={() => saveQuantity(Item.productId)}>
                               Save
                             </span>
-                            <span
-                              className="link-primary"
-                              onClick={() => setEditingItemId(null)}
-                            >
+                            <span className="link-primary" onClick={() => setEditingItemId(null)}>
                               Cancel
                             </span>
                           </>
@@ -172,20 +160,14 @@ export function Checkout() {
                           <>
                             <span className="quantity-label">{Item.quantity}</span>
 
-                            <span
-                              className="link-primary"
-                              onClick={() => {
-                                setEditingItemId(Item.productId);
-                                setNewQuantity(Item.quantity);
-                              }}
-                            >
+                            <span className="link-primary" onClick={() => {
+                              setEditingItemId(Item.productId);
+                              setNewQuantity(Item.quantity);
+                            }}>
                               Update
                             </span>
 
-                            <span
-                              className="link-primary"
-                              onClick={() => deleteItem(Item.productId)}
-                            >
+                            <span className="link-primary" onClick={() => deleteItem(Item.productId)}>
                               Delete
                             </span>
                           </>
@@ -193,8 +175,6 @@ export function Checkout() {
                       </div>
                     </div>
 
-
-                    {/* DELIVERY OPTIONS */}
                     <div className="delivery-options">
                       <div className="delivery-options-title">Choose a delivery option:</div>
 
@@ -236,6 +216,7 @@ export function Checkout() {
                           <div className="delivery-option-price">$9.99 Shipping</div>
                         </div>
                       </div>
+
                     </div>
 
                   </div>
@@ -244,10 +225,7 @@ export function Checkout() {
             })}
           </div>
 
-
-          {/* PAYMENT SUMMARY */}
           <PayementSummary
-          
             delivery={delivery}
             onPlaceOrder={placeOrder}
           />
