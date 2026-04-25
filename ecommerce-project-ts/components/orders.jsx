@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router';
 import dayjs from 'dayjs';
 import { Header } from './utils/header';
 import { useDispatch } from 'react-redux';
-import {fetchCheckouts}from '../store/slice.js'
+import {fetchCheckouts}from '../store/slice.jsx'
 export function Order() {
  
   const [orders, setOrders] = useState([]);
