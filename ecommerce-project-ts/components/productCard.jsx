@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import{fetchCheckouts}from '../store/slice.js'  
+import{fetchCheckouts}from '../store/slice.jsx'  
 import { useDispatch } from "react-redux";
 
  
